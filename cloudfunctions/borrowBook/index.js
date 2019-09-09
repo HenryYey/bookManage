@@ -25,7 +25,6 @@ exports.main = async (event, context) => {
     fail: (err) => {
         code = 1,
         msg =  '借书失败'
-      
     }
   })
   const _ = db.command

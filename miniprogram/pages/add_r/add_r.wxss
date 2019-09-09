@@ -27,7 +27,41 @@
 page {
   background-color: #f2f2f2;
 }
-
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  margin-bottom: 30rpx;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 96%;
+  box-shadow: 2px 2px 2px 2px rgb(241, 241, 241);
+  border-radius: 20rpx;
+  border: 1rpx;
+  border-color: #d2d3d3;
+  min-height: 80rpx;
+}
+.content {
+  padding-top: 15rpx;
+  line-height: 60rpx;
+  text-align: center;
+  padding-left: 30rpx;
+}
+.info_area{
+  margin-left: 10rpx;
+  margin-top: 100rpx;
+  font-size: 36rpx;
+}
+.button {
+  margin-top: 40rpx;
+  margin-bottom: 30rpx;
+  width: 200rpx;
+  height:100rpx;
+  background-color: #00b26a;
+  color: white;
+}
 .top {
   display: flex;
   flex-direction: row;
@@ -78,4 +112,36 @@ page {
   margin-bottom: 30rpx;
   margin-top: 30rpx;
 }
+.swiper {
+  min-height: 1000rpx;
+  margin-top: 80rpx;
+}
+.swiper_scroll-view {
+  width: 100%;
+  height: 100%;
+}
+.swiper_top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  background-color: #fff;
+  height: 80rpx;
+  font-size: 32rpx;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
 
+.swiper_top>view {
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  color: #00b26a;
+  border-bottom: 3px solid #fff;
+}

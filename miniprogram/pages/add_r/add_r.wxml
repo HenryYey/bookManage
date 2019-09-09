@@ -6,49 +6,85 @@
     </view>
   </view>
 </view>
-
-<view class='top'>
-  <view class='view_content'>
-    <text style='color:#00b26a;font-size:40rpx;'>借书只需三步走：</text>
+<view class="swiper_top" style=" margin-top:{{statusBarHeight+titleBarHeight+10}}px">
+  <view class="{{index===0?'active':''}}" data-index='0' bindtap='toggle'>
+    借书
+  </view>
+  <view class="{{index===1?'active':''}}" data-index='1' bindtap='toggle'>
+    还书
   </view>
 </view>
-
-<view class='item'>
-  <view class='view_content'>
-    <text style='color:#00b26a;font-size:34rpx;'>第一步:\n</text>
-    <text>首先确认资料是否填写完成，没有填写资料或者需要修改，</text>
-    <text style='color:#0077ff;' bindtap='gotoregister'>请点这。</text>
-  </view>
-</view>
-
-<view class='item'>
-  <view class='view_content'>
-    <text style='color:#00b26a;font-size:34rpx;'>第二步:\n</text>
-    <text>留意图书角附近张贴的图书角序列号，然后输入序列号确认图书角。\n</text>
-    <text style='color:#00b26a;' >当前图书角：\n</text>
-    <text>{{corner_name}}\n</text>
-    <text style='color:#0077ff;margin-top:16rpx; width:96%;' bindtap="handleUpdate">点击输入图书角序列号</text>
-  </view>
-</view>
-
-<modal title="查询图书角" hidden="{{disable}}" confirm-text="确定" cancel-text="取消" bindconfirm="modalBindaconfirm" bindcancel="modalBindcancel">
-  <input bindinput="inputconner_id" type="text" placeholder="请输入图书角序列号" />
-</modal>
-
-<view class='item'>
-  <view class='view_content'>
-    <text style='color:#00b26a;font-size:34rpx;'>第三步:\n</text>
-    <text>扫一扫或者手动输入图书背后的条形码\n</text>
-
-    <view style='display:flex;flex-direction:row;'>
-      <view style='color:#0077ff;margin-top:16rpx; ' bindtap="handleScan">扫一扫</view>
-      <view style='color:#0077ff;margin-top:16rpx;margin-left:80rpx;' bindtap="handleUpdate2">敲一敲</view>
+<swiper current="{{index}}" duration="200" bindchange="bindChange" class='swiper'>
+  <swiper-item>
+   <scroll-view scroll-y="true" class='swiper_scroll-view'>
+    <view class='top'>
+      <view class='view_content'>
+        <text style='color:#00b26a;font-size:40rpx;'>借书只需三步走：</text>
+      </view>
     </view>
 
-    <!-- <text>{{book_name}}</text> -->
-  </view>
-</view>
-<modal title="查询图书" hidden="{{disable2}}" confirm-text="确定"
-  cancel-text="取消" bindconfirm="modalBindaconfirm2" bindcancel="modalBindcancel2">
-    <input bindinput="inputbookid" type="text" placeholder="请输入图书ISBN条码" />
-</modal> 
+    <view class='item'>
+      <view class='view_content'>
+        <text style='color:#00b26a;font-size:34rpx;'>第一步:\n</text>
+        <text>首先确认资料是否填写完成，没有填写资料或者需要修改，</text>
+        <text style='color:#0077ff;' bindtap='gotoregister'>请点这。</text>
+      </view>
+    </view>
+
+    <view class='item'>
+      <view class='view_content'>
+        <text style='color:#00b26a;font-size:34rpx;'>第二步:\n</text>
+        <text>留意图书角附近张贴的图书角序列号，然后输入序列号确认图书角。\n</text>
+        <text style='color:#00b26a;' >当前图书角：\n</text>
+        <text>{{corner_name}}\n</text>
+        <text style='color:#0077ff;margin-top:16rpx; width:96%;' bindtap="handleUpdate">点击输入图书角序列号</text>
+      </view>
+    </view>
+
+    <modal title="查询图书角" hidden="{{disable}}" confirm-text="确定" cancel-text="取消" bindconfirm="modalBindaconfirm" bindcancel="modalBindcancel">
+      <input bindinput="inputconner_id" type="text" placeholder="请输入图书角序列号" />
+    </modal>
+
+    <view class='item'>
+      <view class='view_content'>
+        <text style='color:#00b26a;font-size:34rpx;'>第三步:\n</text>
+        <text>扫一扫或者手动输入图书背后的条形码\n</text>
+
+        <view style='display:flex;flex-direction:row;'>
+          <view style='color:#0077ff;margin-top:16rpx; ' bindtap="handleScan">扫一扫</view>
+          <view style='color:#0077ff;margin-top:16rpx;margin-left:80rpx;' bindtap="handleUpdate2">敲一敲</view>
+        </view>
+
+        <!-- <text>{{book_name}}</text> -->
+      </view>
+    </view>
+    </scroll-view>
+  </swiper-item>
+  <modal title="查询图书" hidden="{{disable2}}" confirm-text="确定"
+    cancel-text="取消" bindconfirm="modalBindaconfirm2" bindcancel="modalBindcancel2">
+      <input bindinput="inputbookid" type="text" placeholder="请输入图书ISBN条码" />
+  </modal> 
+  <swiper-item>
+    <scroll-view scroll-y="true" class='swiper_scroll-view'>
+        <view class='info_area'>
+          <view wx:if="{{!book_record[0]}}" style="text-align: center;">
+            <text>您还未借过书~</text>
+          </view>
+          <view class='list' wx:for="{{book_record}}" wx:key='book_record'>
+          <view  class="content">
+            <view> 《{{item.book_name}}》</view>
+            <view> 图书角：{{item.corner_name}}</view> 
+            <view> 借阅日期：{{item.borrow_time}}</view> 
+            <button bindtap="repay" class='button' id="{{index}}">还书</button>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    
+    <modal title="提示消息" hidden="{{repayInfo}}" confirm-text="确定" bindconfirm="photoConfirm" bindcancel="photoCancel">
+      请拍摄一张所归还位置的照片，证明已还书~ 
+    </modal>
+  </swiper-item>
+</swiper>
+
+

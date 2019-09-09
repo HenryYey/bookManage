@@ -1,4 +1,4 @@
-let trimStr = (str) => {
+let trimStr = str => {
   /**
    * 去掉开始和结尾的空格
    */
@@ -7,7 +7,7 @@ let trimStr = (str) => {
   else
     return ''
 }
-let name = (name) => {
+let name = name => {
   // 中文名
   if (/^[\u4e00-\u9fa5]{2,4}$/.test(trimStr(name))) {
     return true
@@ -15,14 +15,14 @@ let name = (name) => {
     return false
   }
 }
-let phone = (phone) => {
+let phone = phone => {
   if(/^1[34578]\d{9}$/.test(trimStr(phone))) {
     return true
   } else {
     return false
   }
 }
-let isbn = (num) => {
+let isbn = num => {
   // todo 校验条形码是否正确
   if (num.length === 13)
     return true
@@ -31,7 +31,7 @@ let isbn = (num) => {
 /**
  * 只能为数字或字母
  */
-let numOrLetter = (str) => {
+let numOrLetter = str => {
   let reg = /^[0-9a-zA-Z]*$/g
   if (!reg.test(phone)) {
     return true

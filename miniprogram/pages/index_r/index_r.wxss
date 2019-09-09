@@ -89,20 +89,15 @@ page {
 .item {
   display: flex;
   flex-direction: column;
-
   background-color: #ffffff;
   margin-bottom: 30rpx;
-
   margin-left: 2%;
   margin-right: 2%;
   width: 96%;
-
   box-shadow: 2px 2px 2px 2px rgb(241, 241, 241);
   border-radius: 20rpx;
   border: 1rpx;
   border-color: #d2d3d3;
-
-
 }
 
 .title{
@@ -125,7 +120,6 @@ page {
   margin-bottom: 16rpx;
   color: hsl(0, 4%, 76%);
   font-size: 30rpx;
-  
 }
 
 .new {

@@ -59,7 +59,7 @@ page {
 }
 
 .swiper {
-  height: 1800rpx;
+  min-height: 800rpx;
 }
 
 .swiper_scroll-view {

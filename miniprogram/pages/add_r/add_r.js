@@ -1,5 +1,6 @@
 // pages/add_r/add_r.js
 const app = getApp()
+let { formatDate } = require('../../utils/format.js')
 Page({
   data: {
     corner_id: '',
@@ -11,7 +12,10 @@ Page({
     book_name: '书名尚未查询',
     corner_name: '图书角尚未查询',
     borrow_name: '还未编写',
-    step3able: false
+    step3able: false,
+    state: 0,
+    index: 0,
+    repayInfo: true
   },
   onLoad: function (options) {
     const vm = this
@@ -45,11 +49,123 @@ Page({
       }
     })
   },
-
+  repay: function(e) {
+    console.log(e)
+    let id = parseInt(e.target.id)
+    this.setData({
+      repayInfo: false,
+      corner_id: this.data.book_record[id].corner_id,
+      book_id: this.data.book_record[id].book_isbn,
+    })
+    let that = this
+    console.log(e)
+    this.setData({
+      repayInfo: true,
+    })
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        const t = res.tempFilePaths
+        that.handleRepay(t)
+      }
+    })
+  },
+  handleRepay: function(path) {
+    wx.cloud.callFunction({
+      name: 'repayBook',
+      data: {
+        path, 
+        corner_id: this.data.corner_id,
+        isbn: this.data.book_id,
+        date: formatDate(new Date())
+      },
+      success: res => {
+        wx.showToast({
+          title: '还书成功',
+          icon: "success",
+        })
+        this.getBook_record()
+      },
+      fail: err => {
+        console.log(err)
+        wx.showToast({
+          title: '操作失败'  ,
+          icon: 'none',
+        })
+      }
+    })
+  },
+  bindChange: function (e) {
+    var that = this;
+    that.setData({
+      index: e.detail.current
+    });
+    switch (e.detail.current) {
+      case 0:
+        that.data.state = 0
+        break;
+      case 1:
+        that.data.state = 1
+        break;
+      case 2:
+        that.data.state = 2
+        break;
+    }
+  },
   gotoregister: function () {
     wx.navigateTo({
       url: '../register_r/register_r',
     });
+  },
+  toggle(e) {
+    if (this.data.index === e.currentTarget.dataset.index) {
+      return false;
+    } else {
+      this.setData({
+        index: e.currentTarget.dataset.index
+      })
+    }
+    if (this.data.index === '1') {
+      this.getBook_record()
+    }
+  },
+  getBook_record: function () {
+    const db = wx.cloud.database({});
+    db.collection('book_record').where({
+      //筛选数据
+      corner_id: app.globalData.cornerId
+    }).get({
+      success: res => {
+        console.log('查询成功', res.data);
+        this.setData({
+          book_record: res.data
+        })
+        console.log('输出成功');
+      },
+      fail: err => {
+          wx.showToast({
+          title: '查询失败'  ,
+          icon: 'none',
+        })
+      }  
+    })
+    // this.setData({
+    //   book_record: [{
+    //     book_name: "test",
+    //     corner_name: "test",
+    //     book_isbn: "1",
+    //     corner_id: '1',
+    //     borrow_time: "2019-9-9"
+    //   }, {
+    //     book_isbn: "1",
+    //       corner_id: '1',
+    //       book_name: "test",
+    //       corner_name: "test",
+    //       borrow_time: "2019-9-9"
+    //     }]
+    // })
   },
   handleUpdate(e) {
     if (!this.data.ifRegister) {

@@ -31,7 +31,7 @@
       },
       {
         "pagePath": "pages/add_r/add_r",
-        "text": "借书",
+        "text": "借/还书",
         "iconPath": "images/add3.png",
         "selectedIconPath": "images/add3.png"
       },
