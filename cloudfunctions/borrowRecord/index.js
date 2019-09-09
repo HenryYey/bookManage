@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
   let perpage = (parseInt(event.perPage) - 1) * 10
   let result
   await record.limit(10).skip(perpage).where({
-    openid: wxContext.OPENID,
+    openid: event.userInfo.openId
   }).get().then(res => {
     result = res.data
   }).catch (err => {

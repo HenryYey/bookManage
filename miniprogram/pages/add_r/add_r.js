@@ -21,7 +21,8 @@ Page({
     const vm = this
     vm.setData({
       statusBarHeight: getApp().globalData.statusBarHeight,
-      titleBarHeight: getApp().globalData.titleBarHeight
+      titleBarHeight: getApp().globalData.titleBarHeight,
+      index: options.index
     })
     // 查询此用户是否注册身份
     const db = wx.cloud.database()
@@ -59,9 +60,10 @@ Page({
     })
     let that = this
     console.log(e)
-    this.setData({
-      repayInfo: true,
-    })
+
+  },
+  photoConfirm: function() {
+    let that = this
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
@@ -71,6 +73,9 @@ Page({
         that.handleRepay(t)
       }
     })
+    this.setData({
+      repayInfo: true,
+    })
   },
   handleRepay: function(path) {
     wx.cloud.callFunction({
@@ -78,7 +83,7 @@ Page({
       data: {
         path, 
         corner_id: this.data.corner_id,
-        isbn: this.data.book_id,
+        book_isbn: this.data.book_id,
         date: formatDate(new Date())
       },
       success: res => {
@@ -86,7 +91,9 @@ Page({
           title: '还书成功',
           icon: "success",
         })
-        this.getBook_record()
+        wx.reLaunch({
+          url: '../add_r/add_r?index=1'
+        })
       },
       fail: err => {
         console.log(err)
@@ -133,9 +140,10 @@ Page({
   },
   getBook_record: function () {
     const db = wx.cloud.database({});
+    console.log(app.globalData.openid)
     db.collection('book_record').where({
       //筛选数据
-      corner_id: app.globalData.cornerId
+      openid: app.globalData.openid
     }).get({
       success: res => {
         console.log('查询成功', res.data);

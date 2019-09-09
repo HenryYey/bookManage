@@ -10,19 +10,19 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 exports.main = async (event, context) => {
   const path = event.path
-  const book_isbn = event.book_id
+  const book_isbn = event.book_isbn
   const date = event.date
   const corner_id = event.corner_id
   const db = cloud.database()
   let code = 0
   let msg = '修改成功'
-
+  const _ = db.command
     await db.collection('book_detail').where({
       corner_id
     }).update({
       // data 传入需要局部更新的数据
       data: {
-        borrow_num: _.inc(-1)
+        borrowed_num: _.inc(-1)
       },
       success(res) {
         console.log(res.data)
@@ -33,7 +33,7 @@ exports.main = async (event, context) => {
       }
     })
 
-    await db.collection('book_detail').where({
+    await db.collection('book_record').where({
       corner_id,
       // openid不要自己传，用sdk自带的
       openid: event.userInfo.openId,
