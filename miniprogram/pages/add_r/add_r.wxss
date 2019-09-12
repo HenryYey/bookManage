@@ -61,7 +61,8 @@ page {
 .button {
   margin-top: 40rpx;
   margin-bottom: 30rpx;
-  width: 200rpx;
+  font-size: 1.3em;
+  width: 220rpx;
   height:100rpx;
   background-color: #00b26a;
   color: white;

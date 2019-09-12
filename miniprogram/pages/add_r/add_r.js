@@ -149,7 +149,7 @@ Page({
     db.collection('book_record').where({
       //筛选数据
       openid: app.globalData.openid,
-      state:'未还'
+      state: '未还'
     }).get({
       success: res => {
         console.log('查询成功', res.data);
