@@ -62,7 +62,7 @@ page {
   margin-top: 40rpx;
   margin-bottom: 30rpx;
   font-size: 1.3em;
-  width: 220rpx;
+  width: 200rpx;
   height:100rpx;
   background-color: #00b26a;
   color: white;
