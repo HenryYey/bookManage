@@ -22,7 +22,7 @@ Page({
     vm.setData({
       statusBarHeight: getApp().globalData.statusBarHeight,
       titleBarHeight: getApp().globalData.titleBarHeight,
-      index: options.index
+      index: options.index ? options.index: 0
     })
     // 查询此用户是否注册身份
     const db = wx.cloud.database()
@@ -48,6 +48,11 @@ Page({
         })
         return
       }
+    })
+  },
+  flash: function(e) {
+    wx.reLaunch({
+      url: '../add_r/add_r?index=1'
     })
   },
   repay: function(e) {
@@ -143,7 +148,8 @@ Page({
     console.log(app.globalData.openid)
     db.collection('book_record').where({
       //筛选数据
-      openid: app.globalData.openid
+      openid: app.globalData.openid,
+      state:'未还'
     }).get({
       success: res => {
         console.log('查询成功', res.data);

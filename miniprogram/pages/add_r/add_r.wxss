@@ -3,7 +3,11 @@
   height: 100%;
   background: #fff;
 }
-
+.flash {
+  color: #0099ff;
+  margin-top: 100rpx;
+  text-align: center;
+}
 .header {
   position: fixed;
   top: 0;

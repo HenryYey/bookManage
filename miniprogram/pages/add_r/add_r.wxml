@@ -71,13 +71,14 @@
             <text>您还未借过书~</text>
           </view>
           <view class='list' wx:for="{{book_record}}" wx:key='book_record'>
-          <view  class="content">
-            <view> 《{{item.book_name}}》</view>
-            <view> 图书角：{{item.corner_name}}</view> 
-            <view> 借阅日期：{{item.borrow_time}}</view> 
-            <button bindtap="repay" class='button' id="{{index}}">还书</button>
-          </view>
+            <view  class="content">
+              <view> 《{{item.book_name}}》</view>
+              <view> 图书角：{{item.corner_name}}</view> 
+              <view> 借阅日期：{{item.borrow_time}}</view> 
+              <button bindtap="repay" class='button'>还书</button>
+            </view>
         </view>
+        <view class="flash" bindtap="flash">刷新</view>
       </view>
     </scroll-view>
     
