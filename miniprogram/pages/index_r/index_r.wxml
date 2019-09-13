@@ -42,12 +42,7 @@
     <image src='../../images/red.png'></image>
     <view>已过期的借阅书籍</view>
   </view>
-
   <view class='info_area'>
     <text>空空如也~</text>
   </view>
-
 </view>
-
-
-<!-- <image src='../../images/new.png' class='new'></image> -->

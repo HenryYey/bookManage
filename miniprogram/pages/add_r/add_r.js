@@ -1,6 +1,8 @@
 // pages/add_r/add_r.js
 const app = getApp()
-let { formatDate } = require('../../utils/format.js')
+let {
+  formatDate
+} = require('../../utils/format.js')
 Page({
   data: {
     corner_id: '',
@@ -22,7 +24,7 @@ Page({
     vm.setData({
       statusBarHeight: getApp().globalData.statusBarHeight,
       titleBarHeight: getApp().globalData.titleBarHeight,
-      index: options.index ? options.index: 0
+      index: options.index ? options.index : 0
     })
     // 查询此用户是否注册身份
     const db = wx.cloud.database()
@@ -50,12 +52,12 @@ Page({
       }
     })
   },
-  flash: function(e) {
+  flash: function (e) {
     wx.reLaunch({
       url: '../add_r/add_r?index=1'
     })
   },
-  repay: function(e) {
+  repay: function (e) {
     console.log(e)
     let id = parseInt(e.target.id)
     this.setData({
@@ -67,7 +69,7 @@ Page({
     console.log(e)
 
   },
-  photoConfirm: function() {
+  photoConfirm: function () {
     let that = this
     wx.chooseImage({
       count: 1,
@@ -82,11 +84,16 @@ Page({
       repayInfo: true,
     })
   },
-  handleRepay: function(path) {
+  photoCancel(e) {
+    this.setData({
+      repayInfo: true,
+    })
+  },
+  handleRepay: function (path) {
     wx.cloud.callFunction({
       name: 'repayBook',
       data: {
-        path, 
+        path,
         corner_id: this.data.corner_id,
         book_isbn: this.data.book_id,
         date: formatDate(new Date())
@@ -103,7 +110,7 @@ Page({
       fail: err => {
         console.log(err)
         wx.showToast({
-          title: '操作失败'  ,
+          title: '操作失败',
           icon: 'none',
         })
       }
@@ -159,11 +166,11 @@ Page({
         console.log('输出成功');
       },
       fail: err => {
-          wx.showToast({
-          title: '查询失败'  ,
+        wx.showToast({
+          title: '查询失败',
           icon: 'none',
         })
-      }  
+      }
     })
     // this.setData({
     //   book_record: [{
@@ -198,6 +205,7 @@ Page({
       disable: true
     })
   },
+
   modalBindaconfirm(e) {
     this.setData({
       disable: true
